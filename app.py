@@ -56,7 +56,7 @@ class InferlessPythonModel:
 
         try:
             # Load Image and turn it into PIL image
-            img = inputs["image_bytes"]
+            img = inputs["image"]
 
             img = load_image(img).resize((1024, 1024), Image.LANCZOS)
             control_image = self.preprocess_img(img)
@@ -78,23 +78,29 @@ class InferlessPythonModel:
             seeds = [43, 44, 45]
             generators = [torch.manual_seed(seed) for seed in seeds]
 
+
+            output_imgs = []
             # Run batch if your pipeline supports it
             with torch.inference_mode():
-                output_images = self.pipeline(
-                    image=[img] * 3,
+                for i in range(len(prompts)):
+                    output_image = self.pipeline(
+                    image=img,
                     prompt=prompts,
-                    negative_prompt=[negative_prompt] * 3,
-                    control_image=[control_image] * 3,
+                    negative_prompt=negative_prompt,
+                    control_image=control_image,
                     guidance_scale=guidance,
                     controlnet_conditioning_scale=controlnet_conditioning_scale,
                     num_inference_steps=num_inference_steps,
                     generator=generators,
                     height=1024,
                     width=1024
-                ).images
+                    ).images[0]
 
-            # Convert to base64
-            output_imgs = [self.encode_base64(image) for image in output_images]
+                    output_image = self.encode_base64(output_image)
+                    output_imgs.append(output_image)
+
+                
+
             return {"images": output_imgs}
         except Exception as e:
             print(e)

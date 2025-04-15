@@ -1,5 +1,5 @@
 INPUT_SCHEMA = {
-    "image_bytes": {
+    "image": {
         'datatype': 'STRING',
         'required': True,
         'shape': [1],
