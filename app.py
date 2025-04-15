@@ -11,7 +11,7 @@ import base64
 
 from io import BytesIO
 
-app = inferless.Cls(gpu="T4")
+app = inferless.Cls(gpu="A10")
 
 class InferlessPythonModel:
   
@@ -83,20 +83,23 @@ class InferlessPythonModel:
         with torch.inference_mode():
             for i in range(len(prompts)):
                 output_image = self.pipeline(
-                image=img,
-                prompt=prompts[i],
-                negative_prompt=negative_prompt,
-                control_image=control_image,
-                guidance_scale=guidance[i],
-                controlnet_conditioning_scale=controlnet_conditioning_scale[i],
-                num_inference_steps=num_inference_steps[i],
-                generator=generators[i],
-                height=1024,
-                width=1024
+                    image=img,
+                    prompt=prompts[i],
+                    negative_prompt=negative_prompt,
+                    control_image=control_image,
+                    guidance_scale=guidance[i],
+                    controlnet_conditioning_scale=controlnet_conditioning_scale[i],
+                    num_inference_steps=num_inference_steps[i],
+                    generator=generators[i],
+                    height=1024,
+                    width=1024
                 ).images[0]
 
                 output_image = self.encode_base64(output_image)
                 output_imgs.append(output_image)
+
+                del output_image
+                torch.cuda.empty_cache()
 
             
 
