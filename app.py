@@ -64,14 +64,14 @@ class InferlessPythonModel:
             "Photorealistic portrait of a bald cute asleep newborn baby, closed eyes, soft light, DSLR, 85mm lens",
         #   "Beautiful bald asleep newborn baby in a cradle, wearing a soft blue baby cap, warm diffuse lighting, natural tones",
             "Peaceful sleeping newborn baby, bald, close-up with detailed skin texture, photorealistic, pink skin, shallow depth of field",
-            "Portrait of a sleeping newborn baby with closed eyes, resting peacefully in a soft womb-like environment, warm tones, detailed baby hands"
+            "Portrait of a sleeping newborn baby with closed eyes, resting peacefully in a soft womb-like environment, warm tones"
         ]
 
         negative_prompt = "hair, deformed, fingers, sad, ugly, disgusting, uncanny, blurry, grainy, monochrome, duplicate, artifact, watermark, text"
 
-        num_inference_steps = [30, 25, 45]
-        controlnet_conditioning_scale = [0.6, 0.75, 0.9]
-        guidance = [7.0, 10.0, 12.0]
+        num_inference_steps = [30, 25, 32]
+        controlnet_conditioning_scale = [0.6, 0.75, 0.7]
+        guidance = [7.0, 10.0, 8.0]
 
         # Optional: set different generators for reproducibility
         seeds = [43, 44, 45]
