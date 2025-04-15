@@ -85,13 +85,13 @@ class InferlessPythonModel:
                 for i in range(len(prompts)):
                     output_image = self.pipeline(
                     image=img,
-                    prompt=prompts,
+                    prompt=prompts[i],
                     negative_prompt=negative_prompt,
                     control_image=control_image,
-                    guidance_scale=guidance,
-                    controlnet_conditioning_scale=controlnet_conditioning_scale,
-                    num_inference_steps=num_inference_steps,
-                    generator=generators,
+                    guidance_scale=guidance[i],
+                    controlnet_conditioning_scale=controlnet_conditioning_scale[i],
+                    num_inference_steps=num_inference_steps[i],
+                    generator=generators[i],
                     height=1024,
                     width=1024
                     ).images[0]
