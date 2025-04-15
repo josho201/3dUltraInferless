@@ -112,7 +112,7 @@ class InferlessPythonModel:
     def finalize(self,args):
         self.pipeline = None
         self.controlnet = None
-
+        torch.cuda.empty_cache()
 
 
     def preprocess_img(self, img: Image, res: tuple[int, int] = (1024, 1024)):
