@@ -15,7 +15,7 @@ app = inferless.Cls(gpu="A10")
 
 class InferlessPythonModel:
   
-    def encode_base64(image_rgb: np.ndarray, image_format: str = "PNG") -> str:
+    def encode_base64(self, image_rgb: Image, image_format: str = "PNG") -> str:
         """
         Encode a 3-channel RGB NumPy image to a base64 string.
 
@@ -27,7 +27,7 @@ class InferlessPythonModel:
             str: Base64-encoded image string.
         """
         buffered = BytesIO()
-        Image.fromarray(image_rgb).save(buffered, format=image_format)
+        image_rgb.save(buffered, format=image_format)
         return base64.b64encode(buffered.getvalue()).decode("utf-8")
 
     @app.load
