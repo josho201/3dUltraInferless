@@ -11,7 +11,7 @@ import base64
 
 from io import BytesIO
 
-app = inferless.Cls(gpu="A10")
+app = inferless.Cls(gpu="T4")
 
 class InferlessPythonModel:
   
